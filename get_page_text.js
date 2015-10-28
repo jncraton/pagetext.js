@@ -23,18 +23,6 @@ page.open(system.args[1], function (status) {
         var iframeLoads = 0;
 
         (function(){
-            var objOverlay = document.createElement("div");
-            var objinnerDiv = document.createElement("div");
-            var articleTools = document.createElement("DIV");
-            
-            objOverlay.id = "readOverlay";
-            objinnerDiv.id = "readInner";
-            
-            // Apply user-selected styling:
-
-            objinnerDiv.appendChild(grabArticle());		// Get the article and place it inside the inner Div
-            objOverlay.appendChild(objinnerDiv);		// Insert the inner div into the overlay
-
             // For totally hosed HTML, add body node that can't be found because of bad HTML or something.
             if(document.body == null)
             {
@@ -42,10 +30,7 @@ page.open(system.args[1], function (status) {
                 document.body = body;
             }
 
-            document.body.innerHTML = "";
-            
-            // Inserts the new content :
-            document.body.insertBefore(objOverlay, document.body.firstChild);
+            document.body.innerHTML = grabArticle().innerHTML;
         })()
 
         function grabArticle() {
@@ -54,17 +39,9 @@ page.open(system.args[1], function (status) {
             var topDiv = null;
             var topDivParas;
             
-            var articleContent = document.createElement("DIV");
-            var articleTitle = document.createElement("H1");
-            var articleFooter = document.createElement("DIV");
-            
             // Replace all doubled-up <BR> tags with <P> tags, and remove fonts.
             var pattern =  new RegExp ("<br/?>[ \r\n\s]*<br/?>", "g");
             document.body.innerHTML = document.body.innerHTML.replace(pattern, "</p><p>").replace(/<\/?font[^>]*>/g, '');
-            
-            // Grab the title from the <title> tag and inject it as the title.
-            articleTitle.innerHTML = document.title;
-            articleContent.appendChild(articleTitle);
             
             // Study all the paragraphs and find the chunk that has the best score.
             // A score is determined by things like: Number of <p>'s, commas, special classes, etc.
@@ -90,7 +67,7 @@ page.open(system.args[1], function (status) {
                 }
 
                 // Add a point for the paragraph found
-                if(getInnerText(allParagraphs[j]).length > 10)
+                if(allParagraphs[j].textContent.length > 10)
                     parentNode.readability.contentScore++;
 
                 // Add points for any commas within this paragraph
@@ -107,20 +84,6 @@ page.open(system.args[1], function (status) {
               topDiv = document.createElement('div');
             }
             
-            // REMOVES ALL STYLESHEETS ...
-            for (var k=0;k < document.styleSheets.length; k++) {
-                if (document.styleSheets[k].href != null && document.styleSheets[k].href.lastIndexOf("readability") == -1) {
-                    document.styleSheets[k].disabled = true;
-                }
-            }
-
-            // Remove all style tags in head (not doing this on IE) :
-            var styleTags = document.getElementsByTagName("style");
-            for (var j=0;j < styleTags.length; j++)
-                if (navigator.appName != "Microsoft Internet Explorer")
-                    styleTags[j].textContent = "";
-
-            cleanStyles(topDiv);					// Removes all style attributes
             topDiv = killDivs(topDiv);				// Goes in and removes DIV's that have more non <p> stuff than <p> stuff
             topDiv = killBreaks(topDiv);            // Removes any consecutive <br />'s into just one <br /> 
 
@@ -132,46 +95,13 @@ page.open(system.args[1], function (status) {
             topDiv = clean(topDiv, "h2");
             topDiv = clean(topDiv, "iframe");
             
-            articleContent.appendChild(topDiv);
-
-            return articleContent;
-        }
-
-        // Get the inner text of a node - cross browser compatibly.
-        function getInnerText(e) {
-            if (navigator.appName == "Microsoft Internet Explorer")
-                return e.innerText;
-            else
-                return e.textContent;
+            return topDiv;
         }
 
         // Get character count
         function getCharCount ( e,s ) {
             s = s || ",";
-            return getInnerText(e).split(s).length;
-        }
-
-        function cleanStyles( e ) {
-            e = e || document;
-            var cur = e.firstChild;
-
-            // If we had a bad node, there's not much we can do.
-            if(!e)
-                return;
-
-            // Remove any root styles, if we're able.
-            if(typeof e.removeAttribute == 'function')
-                e.removeAttribute('style');
-
-            // Go until there are no more child nodes
-            while ( cur != null ) {
-                if ( cur.nodeType == 1 ) {
-                    // Remove style attribute(s) :
-                    cur.removeAttribute("style");
-                    cleanStyles( cur );
-                }
-                cur = cur.nextSibling;
-            }
+            return e.textContent.split(s).length;
         }
 
         function killDivs ( e ) {
