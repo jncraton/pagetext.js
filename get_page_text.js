@@ -20,8 +20,6 @@ setTimeout(function () {
 
 page.open(system.args[1], function (status) {
     page.evaluate(function () {
-        var iframeLoads = 0;
-
         (function(){
             // For totally hosed HTML, add body node that can't be found because of bad HTML or something.
             if(document.body == null)
@@ -141,20 +139,6 @@ page.open(system.args[1], function (status) {
                 }
             }
             return e;
-        }
-
-        function removeFrame()
-        {
-            ++iframeLoads;
-            if(iframeLoads >= 6)
-            {
-                var emailContainer = document.getElementById('email-container');
-                if(null != emailContainer) {
-                    emailContainer.parentNode.removeChild(emailContainer);
-                }
-                // reset the count
-                iframeLoads = 0;
-            }
         }
     })
     
