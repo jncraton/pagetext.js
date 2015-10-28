@@ -82,10 +82,9 @@ page.open(system.args[1], function (status) {
               topDiv = document.createElement('div');
             }
             
-            topDiv = killDivs(topDiv);				// Goes in and removes DIV's that have more non <p> stuff than <p> stuff
-            topDiv = killBreaks(topDiv);            // Removes any consecutive <br />'s into just one <br /> 
+            topDiv = removeExtraDivs(topDiv);
+            topDiv = combineBreaks(topDiv);
 
-            // Cleans out junk from the topDiv just in case:
             topDiv = clean(topDiv, "form,object,h1,h2,iframe");
             topDiv = clean(topDiv, "table", 250);
             
@@ -98,7 +97,7 @@ page.open(system.args[1], function (status) {
             return e.textContent.split(s).length;
         }
 
-        function killDivs ( e ) {
+        function removeExtraDivs ( e ) {
             var divsList = e.getElementsByTagName( "div" );
             var curDivLength = divsList.length;
             
@@ -123,7 +122,7 @@ page.open(system.args[1], function (status) {
             return e;
         }
 
-        function killBreaks ( e ) {
+        function combineBreaks ( e ) {
             e.innerHTML = e.innerHTML.replace(/(<br\s*\/?>(\s|&nbsp;?)*){1,}/g,'<br />');
             return e;
         }
