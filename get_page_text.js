@@ -88,12 +88,8 @@ page.open(system.args[1], function (status) {
             topDiv = killBreaks(topDiv);            // Removes any consecutive <br />'s into just one <br /> 
 
             // Cleans out junk from the topDiv just in case:
-            topDiv = clean(topDiv, "form");
-            topDiv = clean(topDiv, "object");
+            topDiv = clean(topDiv, "form,object,h1,h2,iframe");
             topDiv = clean(topDiv, "table", 250);
-            topDiv = clean(topDiv, "h1");
-            topDiv = clean(topDiv, "h2");
-            topDiv = clean(topDiv, "iframe");
             
             return topDiv;
         }
@@ -134,8 +130,8 @@ page.open(system.args[1], function (status) {
             return e;
         }
 
-        function clean(e, tags, minWords) {
-            var targetList = e.getElementsByTagName( tags );
+        function clean(e, selector, minWords) {
+            var targetList = e.querySelectorAll( selector );
             minWords = minWords || 1000000;
 
             for (var y=0; y < targetList.length; y++) {
