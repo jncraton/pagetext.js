@@ -13,9 +13,10 @@ urls.forEach(function (url) {
     
     result = JSON.parse(json)
     
-    assert(result)
-    assert(result.title)
-    assert(result.title.length > 10)
-    assert(result.text)
-    assert(result.text.length > 1000)
+    assert(result, 'No result returned')
+    assert(result.title, 'No title property')
+    assert(result.title.length > 10, 'Title property too short')
+    assert(result.text, 'No text property')
+    assert(result.text.length > 1000, 'Text property too short')
+    assert(result.text.indexOf('Continue reading the main story') == -1, 'Ads detected in text ("Continue reading the main story" found)')
 })
