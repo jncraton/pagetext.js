@@ -21,9 +21,7 @@ setTimeout(function () {
 page.open(system.args[1], function (status) {
     page.evaluate(function () {
         (function(){
-            // For totally hosed HTML, add body node that can't be found because of bad HTML or something.
-            if(document.body == null)
-            {
+            if (document.body == null) {
                 body = document.createElement("body");
                 document.body = body;
             }
