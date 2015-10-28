@@ -45,8 +45,7 @@ page.open(system.args[1], function (status) {
                 parentNode = allParagraphs[j].parentNode;
 
                 // Initialize readability data
-                if(typeof parentNode.readability == 'undefined')
-                {
+                if(typeof parentNode.readability == 'undefined') {
                     parentNode.readability = {"contentScore": 0};			
 
                     // Look for a special classname
@@ -63,8 +62,9 @@ page.open(system.args[1], function (status) {
                 }
 
                 // Add a point for the paragraph found
-                if(allParagraphs[j].textContent.length > 10)
+                if(allParagraphs[j].textContent.length > 10) {
                     parentNode.readability.contentScore++;
+                }
 
                 // Add points for any commas within this paragraph
                 parentNode.readability.contentScore += getCharCount(allParagraphs[j]);
@@ -75,8 +75,7 @@ page.open(system.args[1], function (status) {
                 if(typeof node.readability != 'undefined' && (topDiv == null || node.readability.contentScore > topDiv.readability.contentScore))
                     topDiv = node;
 
-            if(topDiv == null)
-            {
+            if(topDiv == null) {
               topDiv = document.createElement('div');
             }
             
