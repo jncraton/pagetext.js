@@ -144,6 +144,7 @@ page.open(system.args[1], function (status) {
     console.log(JSON.stringify({
         'title':page.title,
         'text':page.plainText,
+        'html':page.content,
     }))
     phantom.exit();
 });

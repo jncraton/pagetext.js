@@ -18,5 +18,7 @@ urls.forEach(function (url) {
     assert(result.title.length > 10, 'Title property too short')
     assert(result.text, 'No text property')
     assert(result.text.length > 1000, 'Text property too short')
+    assert(result.html, 'No html property')
+    assert(result.html.length > 1000, 'html property too short')
     assert(result.text.indexOf('Continue reading the main story') == -1, 'Ads detected in text ("Continue reading the main story" found)')
 })
