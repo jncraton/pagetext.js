@@ -49,16 +49,18 @@ page.open(system.args[1], function (status) {
                     parentNode.readability = {"contentScore": 0};			
 
                     // Look for a special classname
-                    if(parentNode.className.match(/(comment|meta|footer|footnote)/))
+                    if(parentNode.className.match(/(comment|meta|footer|footnote)/)) {
                         parentNode.readability.contentScore -= 50;
-                    else if(parentNode.className.match(/((^|\\s)(post|hentry|entry[-]?(content|text|body)?|article[-]?(content|text|body)?)(\\s|$))/))
+                    } else if(parentNode.className.match(/((^|\\s)(post|hentry|entry[-]?(content|text|body)?|article[-]?(content|text|body)?)(\\s|$))/)) {
                         parentNode.readability.contentScore += 25;
+                    }
 
                     // Look for a special ID
-                    if(parentNode.id.match(/(comment|meta|footer|footnote)/))
+                    if(parentNode.id.match(/(comment|meta|footer|footnote)/)) {
                         parentNode.readability.contentScore -= 50;
-                    else if(parentNode.id.match(/^(post|hentry|entry[-]?(content|text|body)?|article[-]?(content|text|body)?)$/))
+                    } else if(parentNode.id.match(/^(post|hentry|entry[-]?(content|text|body)?|article[-]?(content|text|body)?)$/)) {
                         parentNode.readability.contentScore += 25;
+                    }
                 }
 
                 // Add a point for the paragraph found
@@ -72,8 +74,9 @@ page.open(system.args[1], function (status) {
 
             // Assignment from index for performance. See http://www.peachpit.com/articles/article.aspx?p=31567&seqNum=5 
             for(nodeIndex = 0; (node = document.getElementsByTagName('*')[nodeIndex]); nodeIndex++)
-                if(typeof node.readability != 'undefined' && (topDiv == null || node.readability.contentScore > topDiv.readability.contentScore))
+                if(typeof node.readability != 'undefined' && (topDiv == null || node.readability.contentScore > topDiv.readability.contentScore)) {
                     topDiv = node;
+                }
 
             if(topDiv == null) {
               topDiv = document.createElement('div');
