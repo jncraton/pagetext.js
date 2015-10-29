@@ -46,23 +46,23 @@ page.open(system.args[1], function (status) {
 
                 // Initialize readability data
                 if(typeof parentNode.readability == 'undefined') {
-                    parentNode.readability = {"contentScore": 0};			
-
-                    // Look for a special classname
-                    if(parentNode.className.match(/(comment|meta|footer|footnote)/)) {
-                        parentNode.readability.contentScore -= 50;
-                    } else if(parentNode.className.match(/((^|\\s)(post|hentry|entry[-]?(content|text|body)?|article[-]?(content|text|body)?)(\\s|$))/)) {
-                        parentNode.readability.contentScore += 25;
-                    }
-
-                    // Look for a special ID
-                    if(parentNode.id.match(/(comment|meta|footer|footnote)/)) {
-                        parentNode.readability.contentScore -= 50;
-                    } else if(parentNode.id.match(/^(post|hentry|entry[-]?(content|text|body)?|article[-]?(content|text|body)?)$/)) {
-                        parentNode.readability.contentScore += 25;
-                    }
+                    parentNode.readability = {"contentScore": 0};
                 }
-
+                
+                nodeProperties = parentNode.tagName
+                
+                for (var i = 0; i < parentNode.attributes.length; i++) {
+                    nodeProperties += ' ' + parentNode.attributes[i].name
+                    nodeProperties += ' ' + parentNode.attributes[i].value
+                }
+                
+                // Look for a special classes, ids, and tag names
+                if((nodeProperties).match(/(comment|meta|footer|footnote)/i)) {
+                    parentNode.readability.contentScore -= 50;
+                } else if(parentNode.className.match(/((^|\\s)(post|hentry|entry[-]?(content|text|body)?|article[-]?(content|text|body)?)(\\s|$))/)) {
+                    parentNode.readability.contentScore += 25;
+                }
+                
                 // Add a point for the paragraph found
                 if(allParagraphs[j].textContent.length > 10) {
                     parentNode.readability.contentScore++;
