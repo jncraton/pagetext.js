@@ -102,9 +102,11 @@ page.open(system.args[1], function (status) {
             }
             
             // Look for a special classes, ids, and tag names
-            if(nodeProperties.match(/(comment|meta|footer|footnote)/i)) {
+            console.log(nodeProperties)
+            
+            if(nodeProperties.match(/(^|\s)(comment|meta|footer|footnote|ad|share|hidden)(\s|$)/i)) {
                 score -= 50;
-            } else if(nodeProperties.match(/((^|\\s)(post|hentry|entry[-]?(content|text|body)?|article[-]?(content|text|body)?)(\\s|$))/)) {
+            } else if(nodeProperties.match(/((^|\s)(post|hentry|entry[-]?(content|text|body)?|article[-]?(content|text|body)?)(\s|$))/i)) {
                 score += 25;
             }
             
@@ -135,11 +137,7 @@ page.open(system.args[1], function (status) {
                     // And the number of non-paragraph elements is more than paragraphs 
                     // or other ominous signs :
                     
-                    console.log(divsList[i].tagName)
-                    console.log(divsList[i].id)
-                    console.log(divsList[i].className)
-                
-                    if ( img > p || li > p || a > p || p == 0 || embed > 0) {
+                    if ( img > p || li > p || a > p || p == 0 || embed > 0 || getMetaScore(divsList[i]) < 0) {
                         divsList[i].parentNode.removeChild(divsList[i]);
                     }
                 }
@@ -166,12 +164,15 @@ page.open(system.args[1], function (status) {
         }
     })
 
+    /*
     console.log(JSON.stringify({
         'title':page.title,
         'text':page.plainText,
         'html':page.content,
         'debug_messages':debug_messages,
     }))
+    */
+    console.log(page.content)
 
     phantom.exit();
 });
