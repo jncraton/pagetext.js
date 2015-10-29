@@ -30,7 +30,7 @@ page.open(system.args[1], function (status) {
                 }
 
                 // Remove extra elements
-                var els = document.querySelectorAll('meta,style,script,noscript,iframe,link')
+                var els = document.querySelectorAll('meta,style,script,noscript,iframe,link,object')
                 for (var i = 0; i < els.length; i++) {
                     els[i].parentNode.removeChild(els[i])
                 }
@@ -83,7 +83,7 @@ page.open(system.args[1], function (status) {
                 topDiv = removeExtraElements(topDiv);
                 topDiv = combineBreaks(topDiv);
 
-                topDiv = clean(topDiv, "form,object,h1,h2,iframe,style,script,object");
+                topDiv = clean(topDiv, "form,h1,h2");
                 topDiv = clean(topDiv, "table", 250);
                 
                 // Remove most attributes
