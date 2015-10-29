@@ -13,7 +13,7 @@ urls = [
 urls.forEach(function (url) {
     console.log(url)
     
-    json = child_process.execSync('phantomjs get_page_text.js ' + url).toString()
+    json = child_process.execSync('phantomjs pagetext.js ' + url).toString()
     
     result = JSON.parse(json)
     
