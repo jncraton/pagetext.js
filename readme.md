@@ -1,7 +1,7 @@
 pagetext.js
 ===========
 
-A phantomjs script to grab the text of a web page. Readability was a starting point for this project.
+A phantomjs script to grab the article text from a web page. Readability was a starting point for this project.
 
 Usage
 -----
