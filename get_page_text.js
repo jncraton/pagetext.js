@@ -91,7 +91,7 @@ page.open(system.args[1], function (status) {
             topDiv = removeExtraDivs(topDiv);
             topDiv = combineBreaks(topDiv);
 
-            topDiv = clean(topDiv, "form,object,h1,h2,iframe");
+            topDiv = clean(topDiv, "form,object,h1,h2,iframe,style");
             topDiv = clean(topDiv, "table", 250);
             
             return topDiv;
