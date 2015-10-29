@@ -1,7 +1,11 @@
-child_process = require('child_process')
-assert = require('assert')
+var child_process = require('child_process')
+var assert = require('assert')
+var path = require('path')
+
+var currentDir = path.dirname(process.mainModule.filename)
 
 urls = [
+    'file:///' + currentDir + '/nytimes.html',
     'http://www.nytimes.com/2015/09/27/opinion/sunday/stop-googling-lets-talk.html',
     'https://en.wikipedia.org/wiki/Phantomjs'
 ]
