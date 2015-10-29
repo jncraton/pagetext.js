@@ -165,6 +165,9 @@ page.open(system.args[1], function (status) {
     
     function cleanText(text) {
         text = text.replace(/<!--[\s\S]*?-->/g, "")
+        text = text.replace(/[\t ]+/g, " ")
+        text = text.replace(/\n /g, "\n")
+        text = text.replace(/\n\n+/g, "\n\n")
         return text
     }
     
