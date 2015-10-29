@@ -23,12 +23,20 @@ setTimeout(function () {
 page.open(system.args[1], function (status) {
     setTimeout(function () {
         page.evaluate(function () {
-            if (document.body == null) {
-                body = document.createElement("body");
-                document.body = body;
-            }
+            (function () {
+                if (document.body == null) {
+                    body = document.createElement("body");
+                    document.body = body;
+                }
 
-            document.body.innerHTML = grabArticle().innerHTML;
+                // Remove extra elements
+                var els = document.querySelectorAll('meta,style,script,noscript,iframe,link')
+                for (var i = 0; i < els.length; i++) {
+                    els[i].parentNode.removeChild(els[i])
+                }
+
+                document.body.innerHTML = grabArticle().innerHTML;
+            })()
 
             function grabArticle() {
                 var allParagraphs = document.getElementsByTagName("p");
