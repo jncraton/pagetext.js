@@ -185,5 +185,5 @@ page.open(system.args[1], function (status) {
             'debug_messages':debug_messages,
         }))
         phantom.exit();
-    }, 3000)
+    }, 5000)
 });
