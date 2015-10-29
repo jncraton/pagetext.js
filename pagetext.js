@@ -162,11 +162,16 @@ page.open(system.args[1], function (status) {
             return e;
         }
     })
-
+    
+    function cleanText(text) {
+        text = text.replace(/<!--[\s\S]*?-->/g, "")
+        return text
+    }
+    
     console.log(JSON.stringify({
-        'title':page.title,
-        'text':page.plainText,
-        'html':page.content,
+        'title':cleanText(page.title),
+        'text':cleanText(page.plainText),
+        'html':cleanText(page.content),
         'debug_messages':debug_messages,
     }))
 
