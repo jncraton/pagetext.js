@@ -9,7 +9,10 @@ page.customHeaders = {
     'Referer': 'http://www.google.com',
 };
 
-page.onConsoleMessage = function () {}
+
+debug_messages = ''
+
+page.onConsoleMessage = function (msg) {debug_messages += '\n' + msg}
 page.onError = function () {}
 page.onAlert = function () {}
 
@@ -49,19 +52,7 @@ page.open(system.args[1], function (status) {
                     parentNode.readability = {"contentScore": 0};
                 }
                 
-                nodeProperties = parentNode.tagName
-                
-                for (var i = 0; i < parentNode.attributes.length; i++) {
-                    nodeProperties += ' ' + parentNode.attributes[i].name
-                    nodeProperties += ' ' + parentNode.attributes[i].value
-                }
-                
-                // Look for a special classes, ids, and tag names
-                if((nodeProperties).match(/(comment|meta|footer|footnote)/i)) {
-                    parentNode.readability.contentScore -= 50;
-                } else if(parentNode.className.match(/((^|\\s)(post|hentry|entry[-]?(content|text|body)?|article[-]?(content|text|body)?)(\\s|$))/)) {
-                    parentNode.readability.contentScore += 25;
-                }
+                parentNode.readability.contentScore += getMetaScore(parentNode);
                 
                 // Add a point for the paragraph found
                 if(allParagraphs[j].textContent.length > 10) {
@@ -77,11 +68,6 @@ page.open(system.args[1], function (status) {
                 if(typeof node.readability != 'undefined' && (topDiv == null || node.readability.contentScore > topDiv.readability.contentScore)) {
                     topDiv = node;
                 }
-                
-                // Remove all attributes
-                while(node.attributes.length > 0) {
-                    node.removeAttributeNode(node.attributes[0]);
-                }
             }
 
             if(topDiv == null) {
@@ -94,9 +80,37 @@ page.open(system.args[1], function (status) {
             topDiv = clean(topDiv, "form,object,h1,h2,iframe,style");
             topDiv = clean(topDiv, "table", 250);
             
+            for(nodeIndex = 0; (node = document.getElementsByTagName('*')[nodeIndex]); nodeIndex++) {
+                // Remove all attributes
+                while(node.attributes.length > 0) {
+                    node.removeAttributeNode(node.attributes[0]);
+                }
+            }
+
             return topDiv;
         }
-
+        
+        function getMetaScore( e ) {
+            var score = 0
+            
+            // Returns score based on element meta data (tag name, classes, and id) rather than actual content
+            nodeProperties = e.tagName
+            
+            for (var i = 0; i < e.attributes.length; i++) {
+                nodeProperties += ' ' + e.attributes[i].name
+                nodeProperties += ' ' + e.attributes[i].value
+            }
+            
+            // Look for a special classes, ids, and tag names
+            if(nodeProperties.match(/(comment|meta|footer|footnote)/i)) {
+                score -= 50;
+            } else if(nodeProperties.match(/((^|\\s)(post|hentry|entry[-]?(content|text|body)?|article[-]?(content|text|body)?)(\\s|$))/)) {
+                score += 25;
+            }
+            
+            return score
+        }    
+            
         // Get character count
         function getCharCount ( e,s ) {
             s = s || ",";
@@ -116,10 +130,15 @@ page.open(system.args[1], function (status) {
                 var a = divsList[i].getElementsByTagName("a").length;
                 var embed = divsList[i].getElementsByTagName("embed").length;
 
-            // If the number of commas is less than 10 (bad sign) ...
-            if ( getCharCount(divsList[i]) < 10) {
+                // If the number of commas is less than 10 (bad sign) ...
+                if ( getCharCount(divsList[i]) < 10) {
                     // And the number of non-paragraph elements is more than paragraphs 
                     // or other ominous signs :
+                    
+                    console.log(divsList[i].tagName)
+                    console.log(divsList[i].id)
+                    console.log(divsList[i].className)
+                
                     if ( img > p || li > p || a > p || p == 0 || embed > 0) {
                         divsList[i].parentNode.removeChild(divsList[i]);
                     }
@@ -151,6 +170,7 @@ page.open(system.args[1], function (status) {
         'title':page.title,
         'text':page.plainText,
         'html':page.content,
+        'debug_messages':debug_messages,
     }))
 
     phantom.exit();
