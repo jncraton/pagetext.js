@@ -79,13 +79,14 @@ page.open(system.args[1], function (status) {
             topDiv = clean(topDiv, "form,object,h1,h2,iframe,style");
             topDiv = clean(topDiv, "table", 250);
             
-            /*
-            // Remove all attributes
+            // Remove most attributes
             for(nodeIndex = 0; (node = document.getElementsByTagName('*')[nodeIndex]); nodeIndex++) {
-                while(node.attributes.length > 0) {
-                    node.removeAttributeNode(node.attributes[0]);
+                for (var i = node.attributes.length - 1; i >= 0; i--) {
+                    if (['href','src'].indexOf(node.attributes[i].name.toLowerCase()) < 0) {
+                        node.removeAttributeNode(node.attributes[i]);
+                    }
                 }
-            }*/
+            }
 
             return topDiv;
         }
