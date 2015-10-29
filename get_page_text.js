@@ -73,10 +73,16 @@ page.open(system.args[1], function (status) {
             }
 
             // Assignment from index for performance. See http://www.peachpit.com/articles/article.aspx?p=31567&seqNum=5 
-            for(nodeIndex = 0; (node = document.getElementsByTagName('*')[nodeIndex]); nodeIndex++)
+            for(nodeIndex = 0; (node = document.getElementsByTagName('*')[nodeIndex]); nodeIndex++) {
                 if(typeof node.readability != 'undefined' && (topDiv == null || node.readability.contentScore > topDiv.readability.contentScore)) {
                     topDiv = node;
                 }
+                
+                // Remove all attributes
+                while(node.attributes.length > 0) {
+                    node.removeAttributeNode(node.attributes[0]);
+                }
+            }
 
             if(topDiv == null) {
               topDiv = document.createElement('div');
@@ -140,11 +146,12 @@ page.open(system.args[1], function (status) {
             return e;
         }
     })
-    
+
     console.log(JSON.stringify({
         'title':page.title,
         'text':page.plainText,
         'html':page.content,
     }))
+
     phantom.exit();
 });
