@@ -9,7 +9,6 @@ page.customHeaders = {
     'Referer': 'http://www.google.com',
 };
 
-
 debug_messages = ''
 
 page.onConsoleMessage = function (msg) {debug_messages += '\n' + msg}
@@ -74,18 +73,19 @@ page.open(system.args[1], function (status) {
               topDiv = document.createElement('div');
             }
             
-            topDiv = removeExtraDivs(topDiv);
+            topDiv = removeExtraElements(topDiv);
             topDiv = combineBreaks(topDiv);
 
             topDiv = clean(topDiv, "form,object,h1,h2,iframe,style");
             topDiv = clean(topDiv, "table", 250);
             
+            /*
+            // Remove all attributes
             for(nodeIndex = 0; (node = document.getElementsByTagName('*')[nodeIndex]); nodeIndex++) {
-                // Remove all attributes
                 while(node.attributes.length > 0) {
                     node.removeAttributeNode(node.attributes[0]);
                 }
-            }
+            }*/
 
             return topDiv;
         }
@@ -102,9 +102,7 @@ page.open(system.args[1], function (status) {
             }
             
             // Look for a special classes, ids, and tag names
-            console.log(nodeProperties)
-            
-            if(nodeProperties.match(/(^|\s)(comment|meta|footer|footnote|ad|share|hidden)(\s|$)/i)) {
+            if(nodeProperties.match(/(^|\s)(comment|meta|footer|footnote|ad|share|hidden|figure)(\s|$)/i)) {
                 score -= 50;
             } else if(nodeProperties.match(/((^|\s)(post|hentry|entry[-]?(content|text|body)?|article[-]?(content|text|body)?)(\s|$))/i)) {
                 score += 25;
@@ -119,8 +117,8 @@ page.open(system.args[1], function (status) {
             return e.textContent.split(s).length;
         }
 
-        function removeExtraDivs ( e ) {
-            var divsList = e.getElementsByTagName( "div" );
+        function removeExtraElements ( e ) {
+            var divsList = e.querySelectorAll("*:not(p)");
             var curDivLength = divsList.length;
             
             // Gather counts for other typical elements embedded within.
@@ -164,15 +162,12 @@ page.open(system.args[1], function (status) {
         }
     })
 
-    /*
     console.log(JSON.stringify({
         'title':page.title,
         'text':page.plainText,
         'html':page.content,
         'debug_messages':debug_messages,
     }))
-    */
-    console.log(page.content)
 
     phantom.exit();
 });
