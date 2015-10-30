@@ -4,17 +4,25 @@ var path = require('path')
 
 var currentDir = path.dirname(process.mainModule.filename)
 
-urls = [
-    'file:///' + currentDir + '/nytimes.html',
-    'http://www.bbc.co.uk/news/world-asia-34665539',
-    'http://www.nytimes.com/2015/09/27/opinion/sunday/stop-googling-lets-talk.html',
-    'https://en.wikipedia.org/wiki/Phantomjs'
+pages = [
+    {
+        'url': 'file:///' + currentDir + '/wikipedia.html',
+        'must_contain': ['BSD License']
+    }, {
+        'url': 'file:///' + currentDir + '/nytimes.html',
+    }, {
+        'url': 'http://www.bbc.co.uk/news/world-asia-34665539',
+    }, {
+        'url': 'http://www.nytimes.com/2015/09/27/opinion/sunday/stop-googling-lets-talk.html',
+    }, {
+        'url': 'https://en.wikipedia.org/wiki/Phantomjs',
+    },
 ]
 
-urls.forEach(function (url) {
-    console.log(url)
+pages.forEach(function (page) {
+    console.log(page.url)
     
-    json = child_process.execSync('phantomjs pagetext.js ' + url).toString()
+    json = child_process.execSync('phantomjs pagetext.js ' + page.url).toString()
     
     result = JSON.parse(json)
     
@@ -29,4 +37,10 @@ urls.forEach(function (url) {
     assert(result.html.length < 25000, 'html property too long')
     console.log(result.text)
     assert(result.text.indexOf('Continue reading the main story') == -1, 'Ads detected in text ("Continue reading the main story" found)')
+    
+    if (page.must_contain) {
+        page.must_contain.forEach(function (str) {
+            assert(result.text.indexOf(str) >= 0, 'Text "' + str + '" not fount')
+        })
+    }
 })
