@@ -126,7 +126,7 @@ page.open(system.args[1], function (status) {
             }
 
             function removeExtraElements ( e ) {
-                var divsList = e.querySelectorAll("*:not(p)");
+                var divsList = e.querySelectorAll("*:not(p):not(a):not(span):not(b):not(i):not(u)");
                 var curDivLength = divsList.length;
                 
                 // Gather counts for other typical elements embedded within.
