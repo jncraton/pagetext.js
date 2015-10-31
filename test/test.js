@@ -11,6 +11,9 @@ pages = [
     }, {
         'url': 'file:///' + currentDir + '/nytimes.html',
     }, {
+        'url': 'http://www.theguardian.com/commentisfree/2015/oct/30/indonesia-fires-disaster-21st-century-world-media',
+        'must_contain': ['I’ve often wondered how the media would respond when eco-apocalypse struck']
+    }, {
         'url': 'http://www.bbc.co.uk/news/world-asia-34665539',
     }, {
         'url': 'http://www.nytimes.com/2015/09/27/opinion/sunday/stop-googling-lets-talk.html',
