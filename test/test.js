@@ -25,14 +25,13 @@ pages.forEach(function (page) {
     json = child_process.execSync('phantomjs pagetext.js ' + page.url).toString()
     
     result = JSON.parse(json)
-    
     assert(result, 'No result returned')
-    assert(result.title, 'No title property')
+    assert(result.hasOwnProperty('title'), 'No title property')
     assert(result.title.length > 10, 'Title property too short')
-    assert(result.text, 'No text property')
+    assert(result.hasOwnProperty('text'), 'No text property')
     assert(result.text.length > 1000, 'Text property too short')
     assert(result.text.length < 20000, 'Text property too long')
-    assert(result.html, 'No html property')
+    assert(result.hasOwnProperty('html'), 'No html property')
     assert(result.html.length > 1000, 'html property too short')
     assert(result.html.length < 25000, 'html property too long')
     console.log(result.text)
