@@ -6,6 +6,9 @@ var currentDir = path.dirname(process.mainModule.filename)
 
 pages = [
     {
+        'url': 'file:///' + currentDir + '/github_blog.html',
+        'must_contain': ['Final thoughts','problem-solution ordering issues','Think of yourself as someone who sells aspirin']
+    }, {
         'url': 'file:///' + currentDir + '/wikipedia.html',
         'must_contain': ['BSD License']
     }, {

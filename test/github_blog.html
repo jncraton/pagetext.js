@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>Locked doors, headaches, and intellectual need | Affording Play</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,700,400italic,700italic|Source+Sans+Pro:200,400,600,400italic,600italic|PT+Serif:400,700,400italic,700italic|Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@maxkreminski">
+    <meta name="twitter:title" content="Locked doors, headaches, and intellectual need">
+    <meta name="twitter:description" content="You know those things that, once you learn about them for the first time, you start seeing them absolutely everywhere?Recently, that’s been my experience with problem-solution ordering issues. They keep cropping up: not just in the context of game...">
+    
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">Affording Play</a></h1>
+      <nav>
+        <ul>
+          <li><a href="/about"><i class="fa fa-info-circle"></i>About</a></li>
+          <li><a href="https://twitter.com/maxkreminski"><i class="fa fa-twitter"></i>Twitter</a></li>
+          <li><a href="https://github.com/mkremins"><i class="fa fa-github"></i>GitHub</a></li>
+          <li><a href="/atom.xml"><i class="fa fa-rss"></i>RSS</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <article class="post">
+        <h2><a href="/blog/doors-headaches-intellectual-need">Locked doors, headaches, and intellectual need</a></h2>
+        
+        <div class="date">27 October 2015</div>
+        
+        <p>You know those things that, once you learn about them for the first time, you start seeing them absolutely <em>everywhere</em>?
+Recently, that’s been my experience with <em>problem-solution ordering issues</em>. They keep cropping up: not just in the context of game design, where I first encountered them, but also in such apparently unrelated fields as math education and functional programming.</p>
+
+<p>Despite this, however, I’ve never seen problem-solution ordering issues explicitly discussed in any of the online communities I participate in. So I’m going to try to define what they are; trace them through the different fields in which I’ve encountered them; and hopefully, in the process, demonstrate how a working awareness of these issues can help you avoid certain common pitfalls in teaching and communicating new ideas.</p>
+
+<h3 id="game-design">Game design</h3>
+
+<p>I was first introduced to the idea of problem-solution ordering issues by <a href="https://twitter.com/rich_lem">Richard Lemarchand</a>, one of my game design professors. The idea stuck with me, mostly because it provided a satisfying explanation for a certain confusing pattern of player behavior that I’d witnessed many times in the past.</p>
+
+<p>Here’s the pattern. A new player jumps into your game and starts bouncing around your carefully crafted tutorial level. The level funnels them to the key, which they collect, and then on to the corresponding locked door, which they successfully open. Then, somewhere down the road, they encounter a second locked door… and are completely stumped. They’ve solved this problem once before – why are they having such a hard time solving it again?</p>
+
+<p>What we have here is a problem-solution ordering issue. Because the player got the key in the first level <em>before</em> encountering the locked door, they never really formed an understanding of the causal link between “get key” and “open door”. They got the key, and then some other stuff happened, and then they reached the door, and were able to open it; but “acquiring the key” and “opening the door” were stored as two separate, disconnected events in the player’s mind.</p>
+
+<p>If the player had encountered the locked door <em>first</em>, tried to open it, been unable to, and <em>then</em> found the key and used it to open the door, the causal link would be unmistakable. You use the key to open the locked door, because you can’t open the locked door without the key.</p>
+
+<p>This problem becomes a lot more obvious when you don’t call the key a key, or when the door doesn’t look like a locked door. The “key/door” metaphor is widely understood and frequently used in video games, so many players will assume that you use a key to open a locked door even if your own game doesn’t do a great job of teaching them this fact. But if the “key” is really a thermal detonator and the “door” is really a power generator, a <em>lot</em> of players are going to wind up trying to destroy the second generator they encounter by whacking it ineffectually with a sword.</p>
+
+<h3 id="math-education">Math education</h3>
+
+<p>I’ve <a href="/blog/why-affording-play">drawn parallels</a> between game design and education before, but it still took me a while to realize that problem-solution ordering issues crop up just as often in the classroom as they do in games.</p>
+
+<p>Remember how, in high school math class, a lot of the work you were doing felt <em>really, really pointless</em>? (Even if you never felt that way, I can all but guarantee that at least a few of your former classmates did.) We often think of this feeling of pointlessness as an inevitable byproduct of math education. But what if, instead, it’s partly a consequence of problem-solution ordering issues in the way we currently teach math?</p>
+
+<p>Consider Dan Meyer’s question for math educators: <a href="http://blog.mrmeyer.com/2015/if-math-is-the-aspirin-then-how-do-you-create-the-headache/">if math is the aspirin, then how do you create the headache?</a></p>
+
+<blockquote>
+  <p>Think of yourself as someone who sells aspirin. And realize that the best customer for your aspirin is someone who is in pain. Not a lot of pain. Not a migraine. Just a little.</p>
+
+  <p>One of the worst things you can do is force people who don’t feel pain to take your aspirin. They may oblige you if you have some particular kind of authority in their lives but that aspirin will feel pointless. It’ll undermine their respect for medicine in general.</p>
+
+  <p>Math shouldn’t feel pointless. Math isn’t pointless. It may not have a point in job [y] or [z] but math has a point in math. We invented new math to resolve the limitations of old math. My challenge to all of us here is, before you offer students the new, more powerful math, put them in a place to experience the limitations of the older, less powerful math.</p>
+</blockquote>
+
+<p>In other words: if you introduce the solution (in this case, a new kind of math) before introducing the kind of problems that it’s meant to solve, the solution is likely to come across as pointless and arbitrary. But if you first let students try to tackle these problems with the math they already understand, they’re likely to come away with a kind of intellectual “headache” – and, therefore, to better understand the purpose of the “aspirin” you’re trying to sell.</p>
+
+<p>Which brings us to…</p>
+
+<h3 id="functional-programming">Functional programming</h3>
+
+<p>In functional programming, there’s a concept called the <em>monad</em>. Monads are notoriously abstract, and newcomers to functional programming often get tripped up trying to understand them.</p>
+
+<p>The thing is, monads aren’t actually all that complicated. In fact, most of the experienced functional programmers I’ve met consider them downright simple. It’s just that newcomers often have a really hard time trying to figure out what exactly monads even <em>are</em>.</p>
+
+<p>A lot of intermediate-to-advanced functional programmers have taken it upon themselves to write <em>monad tutorials</em>: blog posts and other explanations intended to demystify monads once and for all. But for the most part, these tutorials never seem to work. Experts who read them go on thinking monads are simple, and beginners who read them remain confused. Why is that?</p>
+
+<p>I think a problem-solution ordering issue is to blame.</p>
+
+<p>Monads are a solution to a specific problem: the problem of repetitive code. If you write enough code in a functional programming language, you start to notice that you’re writing a lot of suspiciously similar code to solve a bunch of superficially different problems. Wouldn’t it be nice if you could just write this code once and then reuse it, instead of rewriting it slightly differently every time? I’m omitting a lot of detail here, but this is effectively what monads allow you to do.</p>
+
+<p>By definition, the chief difference between experienced and inexperienced functional programmers is that experienced functional programmers have written tons of code in functional languages. They’ve all encountered repetition and sought solutions to it. In other words, they’ve felt the headache for which monads are the aspirin.</p>
+
+<p>Beginners, on the other hand, haven’t written nearly as much functional code. They might not have noticed any recurring patterns yet; if they have, the repetition doesn’t yet bother them. The headache just isn’t there.</p>
+
+<p>This is why it’s so hard to explain monads to beginners, especially with canned tutorials that try to explain what monads <em>are</em> without spending too much time on what they’re <em>for</em>. Monads are the solution to a problem that beginners haven’t yet experienced for themselves; and, as a result, they feel pointless, like something out of high-school math.</p>
+
+<p>Remember: <em>One of the worst things you can do is force people who don’t feel pain to take your aspirin.</em> Likewise, I suspect that trying to “teach monads” to novice functional programmers who don’t yet understand the need for monads is likely to do <a href="https://byorgey.wordpress.com/2009/01/12/abstraction-intuition-and-the-monad-tutorial-fallacy/">more harm than good</a>, creating further unnecessary confusion and perpetuating the myth that monads are intrinsically hard to understand.</p>
+
+<h3 id="final-thoughts">Final thoughts</h3>
+
+<p>Strong problem-solution ordering is one of the defining hallmarks of the effective <a href="http://explorableexplanations.com/">explorable explanation</a>. Through interactivity, a well-designed explorable immediately invites the reader to play with the initial arrangement of elements, and thereby to discover potential problems on their own. First-hand experience of a problem induces <em>intellectual need</em> (or, if you prefer, a “headache”) and sets the stage for the introduction of the solution later on.</p>
+
+<p>Speaking of intellectual need: if you’re interested in learning more about the educational theory underpinning this post, I strongly suggest checking out this <a href="http://math.ucsd.edu/~jrabin/publications/ProblemFreeActivity.pdf">remarkably readable paper</a> on intellectual need in the math classroom, which offers both a concrete definition of “intellectual need” and a broad overview of the idea of <em>necessity</em> in the context of education.</p>
+
+<p>And finally, the ultimate takeaway: if you want to craft memorable, relevant-seeming lessons, introduce your locked doors before your keys; your headaches before your aspirin; and your specific motivating problems before your wordy metaphorical generalizations.</p>
+
+<p>(OK, maybe on that last one I should take a bit of my own advice.)</p>
+
+      </article>
+      <div class="sidebar">
+        <h4>About</h4>
+        <p><strong>Affording Play</strong> is an irregularly updated blog by <strong>Max Kreminski</strong> about humans, computers, and the perpetually fascinating ways in which they interact. <a href="/about" style="font-weight:bold;margin-left:0.25rem;">more »</a></p>
+        <h4>Elsewhere</h4>
+        <ul>
+          <li><a href="https://twitter.com/maxkreminski">@maxkreminski</a> on Twitter</li>
+          <li><a href="https://github.com/mkremins">mkremins</a> on GitHub</li>
+        </ul>
+      </div>
+    </main>
+    <footer></footer>
+  </body>
+</html>
