@@ -18,7 +18,7 @@ page.onAlert = function () {}
 setTimeout(function () {
     console.log('Error: Timeout reached')
     phantom.exit()
-}, 10000)
+}, 15000)
 
 page.open(system.args[1], function (status) {
     setTimeout(function () {
