@@ -126,7 +126,7 @@ page.open(system.args[1], function (status) {
             }
 
             function removeExtraElements ( e ) {
-                var divsList = e.querySelectorAll("*:not(p):not(a):not(span):not(b):not(i):not(u):not(em):not(strong):not(blockquote):not(pre):not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)");
+                var divsList = e.querySelectorAll("*:not(p):not(ol):not(ul):not(a):not(span):not(b):not(i):not(u):not(em):not(strong):not(blockquote):not(pre):not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)");
                 var curDivLength = divsList.length;
                 
                 // Gather counts for other typical elements embedded within.
@@ -178,12 +178,35 @@ page.open(system.args[1], function (status) {
             return text
         }
         
-        console.log(JSON.stringify({
+        result = {
             'title':cleanText(page.title),
-            'text':cleanText(page.plainText),
             'html':cleanText(page.content),
             'debug_messages':debug_messages,
-        }))
+        }
+        
+        // Add some markdown to the DOM so that it is included in the plain text
+        page.evaluate(function () {
+            list_items = document.querySelectorAll('li')
+            
+            for (var i = 0; i < list_items.length; i++) {
+                list_items[i].textContent = '- ' + list_items[i].textContent
+            }
+
+            headers = document.querySelectorAll('h1,h2,h3,h4,h5,h6')
+            
+            for (var i = 0; i < headers.length; i++) {
+                prefix = ''
+                
+                for (var level = 0; level < headers[i].tagName[1]; level++) {
+                    prefix += '#'
+                }
+                headers[i].textContent = prefix + ' ' + headers[i].textContent
+            }
+        })
+        
+        result['text'] = cleanText(page.plainText)
+            
+        console.log(JSON.stringify(result))
         phantom.exit();
     }, 5000)
 });
