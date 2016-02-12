@@ -28,6 +28,27 @@ page.open(system.args[1], function (status) {
                     body = document.createElement("body");
                     document.body = body;
                 }
+                
+                var frames = document.querySelectorAll('frame')
+                if (frames) {
+                    var longestFrame = document.body
+                    
+                    for (var i = 0; i < frames.length; i++) {
+                        var body = frames[i].contentWindow.document.body
+                        if (body.textContent.length > longestFrame.textContent.length) {
+                            longestFrame = body
+                        }
+                    }
+                    
+                    var frameset = document.querySelector('frameset')
+                    
+                    if (frameset) {
+                        frameset.remove()
+                        document.body = document.createElement("body");
+                    }
+
+                    document.body.innerHTML = longestFrame.innerHTML
+                }
 
                 // Remove extra elements
                 var els = document.querySelectorAll('meta,style,script,noscript,iframe,link,object')
