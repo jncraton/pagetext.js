@@ -22,8 +22,6 @@ pages = [
     }, {
         'url': 'http://www.bbc.co.uk/news/world-asia-34665539',
     }, {
-        'url': 'http://www.nytimes.com/2015/09/27/opinion/sunday/stop-googling-lets-talk.html',
-    }, {
         'url': 'https://en.wikipedia.org/wiki/Phantomjs',
     },
 ]
