@@ -53,7 +53,7 @@ page.open(system.args[1], function (status) {
                 // Remove extra elements
                 var els = document.querySelectorAll('form,meta,style,script,noscript,iframe,link,object')
                 for (var i = 0; i < els.length; i++) {
-                    els[i].remove();
+                    els[i].parentNode.removeChild(els[i])
                 }
 
                 document.body.innerHTML = grabArticle().innerHTML;
