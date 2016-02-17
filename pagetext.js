@@ -147,7 +147,7 @@ page.open(system.args[1], function (status) {
             }
 
             function removeExtraElements ( e ) {
-                var divsList = e.querySelectorAll("*:not(p):not(ol):not(ul):not(a):not(span):not(b):not(i):not(u):not(em):not(strong):not(blockquote):not(pre):not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)");
+                var divsList = e.querySelectorAll("*:not(p):not(ol):not(ul):not(li):not(a):not(span):not(b):not(i):not(u):not(em):not(strong):not(blockquote):not(pre):not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)");
                 var curDivLength = divsList.length;
                 
                 // Gather counts for other typical elements embedded within.
