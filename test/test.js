@@ -6,6 +6,9 @@ var currentDir = path.dirname(process.mainModule.filename)
 
 pages = [
     {
+        'url': 'file:///' + currentDir + '/github_code.html',
+        'must_contain': ['In December 2015, the IETF ratified status code 451.']
+    }, {
         'url': 'file:///' + currentDir + '/guardian.html',
         'must_contain': ['I’ve often wondered how the media would respond when eco-apocalypse struck']
     }, {
@@ -32,13 +35,13 @@ pages.forEach(function (page) {
         
     console.log(`Processing ${page.url}...`)
     result = JSON.parse(stdout)
-
+    
     assert(result, 'No result returned')
     assert(!result.hasOwnProperty('error'), `Error: ${result.error}`)
     assert(result.hasOwnProperty('title'), 'No title property')
     assert(result.title.length > 10, 'Title property too short')
     assert(result.hasOwnProperty('text'), 'No text property')
-    assert(result.text.length > 1000, 'Text property too short')
+    assert(result.text.length > 500, 'Text property too short')
     assert(result.text.length < 20000, 'Text property too long')
     assert(result.hasOwnProperty('html'), 'No html property')
     assert(result.html.length > 1000, 'html property too short')

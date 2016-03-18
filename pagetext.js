@@ -16,7 +16,7 @@ page.onError = function () {}
 page.onAlert = function () {}
 
 setTimeout(function () {
-    console.log('{"debug_messages":"Error: Timeout reached"}')
+    console.log('{"error":"Timeout reached"}')
     phantom.exit()
 }, 15000)
 
