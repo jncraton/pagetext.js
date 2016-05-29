@@ -1,3 +1,4 @@
+dist: trusty
 before_script:
   - phantomjs --version
 script: 
