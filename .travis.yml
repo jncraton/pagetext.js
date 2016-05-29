@@ -1,1 +1,4 @@
-script: phantomjs test/test.js
+before_script:
+  - phantomjs --version
+script: 
+  - phantomjs test/test.js
