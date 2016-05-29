@@ -1,6 +1,8 @@
 pagetext.js
 ===========
 
+[![Build status](https://travis-ci.org/jncraton/pagetext.js.png)](https://travis-ci.org/jncraton/pagetext.js)
+
 A phantomjs script to grab the article text from a web page. Readability was a starting point for this project.
 
 Usage
