@@ -131,7 +131,7 @@ page.open(system.args[1], function (status) {
                 }
                 
                 // Look for a special classes, ids, and tag names
-                if(nodeProperties.match(/(^|\s)(comment|meta|footer|footnote|ad|share|hidden|figure|caption)(\s|$)/i)) {
+                if(nodeProperties.match(/(^|\s)(comment|meta|footer|footnote|ad|share|hidden|figure|caption|extra|video)(\s|$)/i)) {
                     score -= 50;
                 } else if(nodeProperties.match(/((^|\s)(post|hentry|entry[-]?(content|text|body)?|article[-]?(content|text|body)?)(\s|$))/i)) {
                     score += 25;
